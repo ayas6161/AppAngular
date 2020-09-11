@@ -1,8 +1,9 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+  <div class="container">
   <a class="navbar-brand" href="#">Dating App</a>
   
   
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto" *ngIf="loggedin()">
       <li class="nav-item active">
         <a class="nav-link" href="#">Matches <span class="sr-only">(current)</span></a>
       </li>
@@ -12,19 +13,17 @@
       <li class="nav-item">
         <a class="nav-link " href="#" tabindex="-1" >Messages</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link " (click)="logout()" href="#">Logout</a>
-      </li>
+
     </ul>
-    <div class="dropdown" *ngIf="loggedin()">
-      <a class="dropdown-toggle text-light" href="#">
-        Welocome User
+    <div  class="dropdown" *ngIf="loggedin()" dropdown>
+      <a style="cursor: pointer;" class="dropdown-toggle text-light"  dropdownToggle>
+       Welcome {{auth.decodedtoken?.unique_name|titlecase}}
       </a>
     
-      <div class="dropdown-menu" >
-        <a class="dropdown-item" href="#">Edit Profile</a>
+      <div class="dropdown-menu mt-2" *dropdownMenu >
+        <a class="dropdown-item" href="#"><i class="fa fa-user"></i>Edit Profile</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" (click)="logout()" href="#">Logout</a>
+        <a class="dropdown-item" (click)="logout()" style="cursor: pointer;"  ><i class="fa fa-sign-out"></i>Logout</a>
       </div>
     </div>
     <form class="form-inline mt-2 mt-md-0"  (ngSubmit)="onLogin(loginform)" #loginform="ngForm" *ngIf="!loggedin()">
@@ -32,5 +31,6 @@
       <input class="form-control mr-sm-2" type="password" placeholder="Password"  name="password" ngModel required>
       <button class="btn btn-outline-primary my-2 my-sm-0" [disabled]="!loginform.valid" type="submit">Login</button>
     </form>
+  </div>
 
 </nav>
